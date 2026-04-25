@@ -14,9 +14,9 @@ export default function FinalQuestion({ next, name }) {
 
   const text3 = `En este tiempo que llevo saliendo contigo, me he dado cuenta de lo increíble que eres y lo feliz que me haces.
 Eres la persona más especial que he conocido, y cada momento a tu lado es un regalo.
-Me encantaría seguir construyendo recuerdos juntos. 💖`;
+Me encantaría seguir construyendo recuerdos juntos. 💌`;
 
-  const text4 = `${name}, ¿quieres ser mi novia? 💖`;
+  const text4 = `${name}, ¿quieres ser mi novia? 💕`;
 
   // ⏱️ control de fases
   useEffect(() => {
