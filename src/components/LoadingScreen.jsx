@@ -11,16 +11,16 @@ export default function LoadingScreen({ next }) {
   ];
 
   const [textIndex, setTextIndex] = useState(0);
+  const [ready, setReady] = useState(false);
 
   useEffect(() => {
-    // cambiar mensajes cada 2s
     const interval = setInterval(() => {
       setTextIndex((i) => (i + 1) % messages.length);
     }, 2000);
 
-    // avanzar después de 7s
+    // 👇 en vez de avanzar, solo habilita botón
     const timeout = setTimeout(() => {
-      next();
+      setReady(true);
     }, 7000);
 
     return () => {
@@ -34,11 +34,13 @@ export default function LoadingScreen({ next }) {
       <div className="card">
 
         {/* Loader */}
-        <motion.div
-          className="loader mb-6"
-          animate={{ rotate: 360 }}
-          transition={{ repeat: Infinity, duration: 1, ease: "linear" }}
-        />
+        {!ready && (
+          <motion.div
+            className="loader mb-6"
+            animate={{ rotate: 360 }}
+            transition={{ repeat: Infinity, duration: 1, ease: "linear" }}
+          />
+        )}
 
         {/* Texto dinámico */}
         <motion.p
@@ -47,8 +49,23 @@ export default function LoadingScreen({ next }) {
           animate={{ opacity: 1, y: 0 }}
           className="subtitle text-center"
         >
-          {messages[textIndex]}
+          {ready
+            ? "Todo está listo… 💖"
+            : messages[textIndex]}
         </motion.p>
+
+        {/* 👇 Botón aparece solo cuando termina */}
+        {ready && (
+          <motion.button
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.3 }}
+            onClick={next}
+            className="btn glow-btn mt-8"
+          >
+            Continuar 💌
+          </motion.button>
+        )}
 
       </div>
     </div>
