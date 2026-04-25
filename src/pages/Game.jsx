@@ -47,6 +47,16 @@ export default function Game() {
       correct: "Todo ehhhh",
     },
     {
+      question: "¿Cuál es el apodo que le pusieron a Claudito?",
+      options: ["ClaudioGod", "Claudio Rey", "ClaudioGay"],
+      correct: "ClaudioGod",
+    },
+    {
+      question: "¿Cuál es el evento más loco/weizo que ha tenido Chantal con Claudito?",
+      options: ["quedarse varado en medio de la nada", "ir a un concierto y perderse", "ir a una fiesta y terminar en una piscina", "devolverse a casa por una mala noticia"],
+      correct: "devolverse a casa por una mala noticia",
+    },
+    {
       question: "¿Tu mamá aprueba a Claudito?",
       options: ["Sí, te adora 😍", "No, te odia 😢", "Ni idea 😅"],
       correct: "Sí, te adora 😍",

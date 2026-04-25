@@ -1,19 +1,38 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { useState, useEffect } from "react";
 
 export default function FinalQuestion({ next, name }) {
+  const [phase, setPhase] = useState(0);
+
   const text1 = "Ejecutando función final… 💻";
+
   const text2 = `if (te gusta Claudito) {
   return "Sí 💖";
 }`;
-  const text3 = `${name}, ¿quieres ser mi novia? 💖`;
+
+  const text3 = `En este tiempo que llevo saliendo contigo, me he dado cuenta de lo increíble que eres y lo feliz que me haces.
+Eres la persona más especial que he conocido, y cada momento a tu lado es un regalo.
+Me encantaría seguir construyendo recuerdos juntos. 💖`;
+
+  const text4 = `${name}, ¿quieres ser mi novia? 💖`;
+
+  // ⏱️ control de fases
+  useEffect(() => {
+    if (phase === 0) {
+      setTimeout(() => setPhase(1), 2500);
+    }
+    if (phase === 1) {
+      setTimeout(() => setPhase(2), 5000);
+    }
+  }, [phase]);
 
   const container = {
     hidden: {},
     visible: {
       transition: {
-        staggerChildren: 0.03,
+        staggerChildren: 0.025,
       },
     },
   };
@@ -34,71 +53,79 @@ export default function FinalQuestion({ next, name }) {
     <div className="screen">
       <div className="card">
 
-        {/* ❤️ Corazón animado */}
+        {/* ❤️ Corazón */}
         <motion.div
           initial={{ scale: 0 }}
           animate={{ scale: 1 }}
-          transition={{ duration: 0.6 }}
           className="final-heart"
         >
           ❤️
         </motion.div>
 
-        {/* 🧠 Texto animado */}
         <div className="final-text">
 
-          {/* Línea 1 */}
-          <motion.p
-            variants={container}
-            initial="hidden"
-            animate="visible"
-            className="mb-4"
-          >
-            {renderText(text1)}
-          </motion.p>
-
           {/* Código */}
-          <motion.pre
-            variants={container}
-            initial="hidden"
-            animate="visible"
-            transition={{ delay: 1.2 }}
-            className="code-block"
-          >
-            {renderText(text2)}
-          </motion.pre>
+          {phase >= 0 && (
+            <motion.pre
+              variants={container}
+              initial="hidden"
+              animate="visible"
+              className="code-block"
+            >
+              {renderText(text1 + "\n\n" + text2)}
+            </motion.pre>
+          )}
 
-          {/* Pregunta final */}
-          <motion.h1
-            variants={container}
-            initial="hidden"
-            animate="visible"
-            transition={{ delay: 2.8 }}
-            className="final-question highlight"
-          >
-            {renderText(text3)}
-          </motion.h1>
+          {/* 💖 Mensaje emocional */}
+          {phase >= 1 && (
+            <motion.p
+              variants={container}
+              initial="hidden"
+              animate="visible"
+              className="final-message mt-6"
+            >
+              {renderText(text3)}
+            </motion.p>
+          )}
+
+          {/* 💥 Pregunta final */}
+          {phase >= 2 && (
+            <motion.h1
+              variants={container}
+              initial="hidden"
+              animate="visible"
+              className="final-question highlight mt-6"
+            >
+              {renderText(text4)}
+            </motion.h1>
+          )}
 
         </div>
 
-        {/* 💖 Botones */}
-        <div className="final-buttons mt-6">
-          <motion.button
-            whileTap={{ scale: 0.95 }}
-            onClick={next}
-            className="btn glow-btn"
+        {/* 💖 Botones SOLO cuando aparece la pregunta */}
+        {phase >= 2 && (
+          <motion.div
+            className="final-buttons mt-6"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
           >
-            Sí 💕
-          </motion.button>
+            <motion.button
+              whileTap={{ scale: 0.95 }}
+              onClick={next}
+              className="btn glow-btn"
+            >
+              Sí 💕
+            </motion.button>
 
-          <motion.button
-            whileTap={{ scale: 0.95 }}
-            onClick={next}
-            className="btn glow-btn"
-          >
-            Obvio 😏
-          </motion.button>
-        </div>
+            <motion.button
+              whileTap={{ scale: 0.95 }}
+              onClick={next}
+              className="btn glow-btn"
+            >
+              Obvio 😏
+            </motion.button>
+          </motion.div>
+        )}
 
       </div>
     </div>

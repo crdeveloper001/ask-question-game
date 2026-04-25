@@ -22,7 +22,7 @@ export default function TransitionScreen({ next }) {
 
         {/* Subtítulo */}
         <p className="subtitle">
-          Pero antes de la última pregunta que es la más importante, quiero lanzar una ultima pregunta...
+          Pero hay una pregunta de bono que queremos hacerte…
         </p>
         </p>
 
